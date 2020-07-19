@@ -20,3 +20,20 @@
   font-size: 1.875rem;
   margin-right: 1rem;
 }
+
+/* Alerts */
+.light {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: #000;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  max-width: 100%;
+  width: 200px;
+  height: 50px;
+  padding: 0.25rem;
+  background-color: yellow;
+}

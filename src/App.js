@@ -5,9 +5,11 @@ import './App.css';
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
 import Search from './components/users/Search';
+import Alert from './components/layout/Alert';
 
 export default class App extends React.Component {
   state = {
+    alert: null,
     users: [],
     loading: false,
   };
@@ -34,16 +36,26 @@ export default class App extends React.Component {
     this.setState({ users: [], loading: false });
   };
 
+  // Set alert
+  setAlert = (msg, type) => {
+    this.setState({ alert: { msg: msg, type: type } });
+
+    setTimeout(() => this.setState({ alert: null }), 5000);
+  };
+
   render() {
+    const { users, loading } = this.state;
     return (
       <div className='app-wrapper'>
         <Navbar icon='fab fa-github' title='Github Finder' />
+        <Alert alert={this.state.alert} />
         <Search
-          searchUsers={this.searchUsers}
           clearUsers={this.clearUsers}
-          showClear={this.state.users.length > 0 ? true : false}
+          searchUsers={this.searchUsers}
+          setAlert={this.setAlert}
+          showClear={users.length > 0 ? true : false}
         />
-        <Users loading={this.state.loading} users={this.state.users} />
+        <Users loading={loading} users={users} />
       </div>
     );
   }

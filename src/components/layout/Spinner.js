@@ -3,7 +3,7 @@ import spinner from './spinner.gif';
 
 const Spinner = () => (
   <Fragment>
-    <img className='w-2 mx-auto block' src={spinner} alt='Loading...' />
+    <img className='w-32 mx-auto block' src={spinner} alt='Loading...' />
   </Fragment>
 );
 
