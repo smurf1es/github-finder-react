@@ -1,14 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Navbar = ({ icon, title }) => {
   return (
-    <nav className='flex justify-center md:justify-start h-16 w-full bg-black'>
+    <nav className='flex justify-evenly h-16 w-full bg-black'>
       <div className='flex items-center md:ml-32'>
         <i className={`icon ${icon}`} />
-        <a className='no-underline' href='#'>
+        <Link className='no-underline' to='/'>
           <h1 className='text-xl text-white'>{title}</h1>
-        </a>
+        </Link>
+      </div>
+      <div className='md:flex hidden items-center md:ml-auto mr-32'>
+        <ul>
+          <li>
+            <Link className='text-white text-lg' to='/about'>
+              About
+            </Link>
+          </li>
+        </ul>
       </div>
     </nav>
   );
