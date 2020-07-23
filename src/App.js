@@ -13,9 +13,10 @@ import About from './components/pages/About';
 
 export default class App extends React.Component {
   state = {
-    alert: null,
     users: [],
     user: {},
+    repos: [],
+    alert: null,
     loading: false,
   };
 
@@ -45,6 +46,15 @@ export default class App extends React.Component {
     this.setState({ user: res.data, loading: false });
   };
 
+  // Get a single github repos
+  getUserRepos = async (username) => {
+    this.setState({ loading: true });
+    const res = await axios.get(
+      `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+    this.setState({ repos: res.data, loading: false });
+  };
+
   // Clear users from state
   clearUsers = () => {
     this.setState({ users: [], loading: false });
@@ -58,7 +68,7 @@ export default class App extends React.Component {
   };
 
   render() {
-    const { users, user, loading } = this.state;
+    const { users, user, loading, repos } = this.state;
     return (
       <BrowserRouter>
         <div className='app-wrapper'>
@@ -88,7 +98,9 @@ export default class App extends React.Component {
                 <User
                   {...props}
                   getUser={this.getUser}
+                  getUserRepos={this.getUserRepos}
                   user={user}
+                  repos={repos}
                   loading={loading}
                 />
               )}
