@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
+import GithubContext from '../../context/github/githubContext';
 
 import Repos from '../repos/Repos';
 
-const User = ({ user, loading, getUser, getUserRepos, repos, match }) => {
+const User = ({ match }) => {
+  const githubContext = useContext(GithubContext);
+
   useEffect(() => {
-    getUser(match.params.login);
-    getUserRepos(match.params.login);
+    githubContext.getUser(match.params.login);
+    githubContext.getUserRepos(match.params.login);
     // eslint-disable-next-line
   }, []);
 
@@ -26,9 +29,9 @@ const User = ({ user, loading, getUser, getUserRepos, repos, match }) => {
     public_repos,
     public_gists,
     hireable,
-  } = user;
+  } = githubContext.user;
 
-  if (loading) return <Spinner />;
+  if (githubContext.loading) return <Spinner />;
 
   return (
     <div className='flex flex-col md:flex-row justify-evenly items-center'>
@@ -117,19 +120,11 @@ const User = ({ user, loading, getUser, getUserRepos, repos, match }) => {
           </a>
         </div>
         <div className='mt-4 mb-4 md:mb-0 md:mt-12'>
-          <Repos repos={repos} />
+          <Repos repos={githubContext.repos} />
         </div>
       </div>
     </div>
   );
-};
-
-User.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
-  repos: PropTypes.array.isRequired,
-  getUser: PropTypes.func.isRequired,
-  getUserRepos: PropTypes.func.isRequired,
 };
 
 export default User;
