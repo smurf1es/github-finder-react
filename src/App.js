@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -11,38 +11,33 @@ import Alert from './components/layout/Alert';
 import About from './components/pages/About';
 
 import GithubState from './context/github/GithubState';
+import AlertState from './context/alert/AlertState';
 
 const App = () => {
-  const [alert, setAlert] = useState(null);
-
-  // Set alert
-  const showAlert = (msg, type) => {
-    setAlert({ msg, type });
-    setTimeout(() => setAlert(null), 5000);
-  };
-
   return (
     <GithubState>
-      <BrowserRouter>
-        <div className='app-wrapper'>
-          <Navbar icon='fab fa-github' title='Github Finder' />
-          <Alert alert={alert} />
-          <Switch>
-            <Route
-              exact
-              path='/'
-              render={(props) => (
-                <React.Fragment>
-                  <Search setAlert={showAlert} />
-                  <Users />
-                </React.Fragment>
-              )}
-            />
-            <Route exact path='/about' component={About} />
-            <Route exact path='/user/:login' component={User} />
-          </Switch>
-        </div>
-      </BrowserRouter>
+      <AlertState>
+        <BrowserRouter>
+          <div className='app-wrapper'>
+            <Navbar icon='fab fa-github' title='Github Finder' />
+            <Alert />
+            <Switch>
+              <Route
+                exact
+                path='/'
+                render={(props) => (
+                  <React.Fragment>
+                    <Search />
+                    <Users />
+                  </React.Fragment>
+                )}
+              />
+              <Route exact path='/about' component={About} />
+              <Route exact path='/user/:login' component={User} />
+            </Switch>
+          </div>
+        </BrowserRouter>
+      </AlertState>
     </GithubState>
   );
 };
