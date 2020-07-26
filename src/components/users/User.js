@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
-import PropTypes from 'prop-types';
 import GithubContext from '../../context/github/githubContext';
 
 import Repos from '../repos/Repos';
@@ -26,8 +25,6 @@ const User = ({ match }) => {
     html_url,
     followers,
     following,
-    public_repos,
-    public_gists,
     hireable,
   } = githubContext.user;
 
