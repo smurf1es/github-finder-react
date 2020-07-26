@@ -4,14 +4,14 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Navbar from './components/layout/Navbar';
-import Users from './components/users/Users';
-import Search from './components/users/Search';
 import User from './components/users/User';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
+import Home from './components/pages/Home';
 
-import GithubState from './context/github/GithubState';
 import AlertState from './context/alert/AlertState';
+import GithubState from './context/github/GithubState';
+import NotFound from './components/pages/NotFound';
 
 const App = () => {
   return (
@@ -22,18 +22,10 @@ const App = () => {
             <Navbar icon='fab fa-github' title='Github Finder' />
             <Alert />
             <Switch>
-              <Route
-                exact
-                path='/'
-                render={(props) => (
-                  <React.Fragment>
-                    <Search />
-                    <Users />
-                  </React.Fragment>
-                )}
-              />
+              <Route exact path='/' component={Home} />
               <Route exact path='/about' component={About} />
               <Route exact path='/user/:login' component={User} />
+              <Route component={NotFound} />
             </Switch>
           </div>
         </BrowserRouter>
