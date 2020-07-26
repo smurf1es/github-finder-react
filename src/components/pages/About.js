@@ -5,7 +5,10 @@ const About = (props) => {
     <div className='text-md md:text-xl my-64'>
       <div className='flex flex-col justify-center items-center'>
         <h1 className='font-bold'>About this app</h1>
-        <p>App to search Github Users</p>
+        <p>
+          App to search Github Users by{' '}
+          <strong className='font-bold'>Pahuger Puruhita Baiq</strong>
+        </p>
         <p>Version 1.0.0</p>
       </div>
     </div>
